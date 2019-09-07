@@ -1,25 +1,24 @@
 package page_factory;
 
+
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.pagefactory.FieldDecorator;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-
-
+@Getter
 public class CustomPageFactory {
 
-	protected WebDriver driver;
-	private final int timeOutInSeconds=10;
+	private WebDriver driver;
 
-	public CustomPageFactory(WebDriver driver) {
-		this.driver = driver;
+	public CustomPageFactory(WebDriver webDriver) {
+		this.driver = webDriver;
 	}
 
-
-	public  <T> T init ( Class<T> pageClassToProxy) {
-		T page = instantiatePage(driver, pageClassToProxy);
-		initElements(new CustomFieldDecorator(new CustomElementFactory(driver,timeOutInSeconds)), page);
+	public <T> T init(Class<T> pageClassToProxy) {
+		T page=instantiatePage(pageClassToProxy);
+		initElements(new CustomFieldDecorator(driver), page);
 		return page;
 	}
 
@@ -31,7 +30,7 @@ public class CustomPageFactory {
 
 	}
 
-	private static void proxyFields(FieldDecorator decorator, Object page, Class<?> proxyIn) {
+	private void proxyFields(FieldDecorator decorator, Object page, Class<?> proxyIn) {
 		Field[] fields = proxyIn.getDeclaredFields();
 		Field[] var4 = fields;
 		int var5 = fields.length;
@@ -51,11 +50,11 @@ public class CustomPageFactory {
 
 	}
 
-	private <T> T instantiatePage(WebDriver driver, Class<T> pageClassToProxy) {
+	private <T> T instantiatePage(Class<T> pageClassToProxy) {
 		try {
 			try {
-				Constructor<T> constructor = pageClassToProxy.getConstructor(WebDriver.class);
-				return constructor.newInstance(driver);
+				Constructor<T> constructor = pageClassToProxy.getConstructor();
+				return constructor.newInstance();
 			} catch (NoSuchMethodException var3) {
 				return pageClassToProxy.newInstance();
 			}

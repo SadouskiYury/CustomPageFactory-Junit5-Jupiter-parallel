@@ -12,7 +12,7 @@ public class CopyHomeFeature extends BaseTest {
 	@Test
 	public void firstTestExample() {
 		page.init(MyQBHomePage.class).openExpantionPanel()
-				.fillUserCredential("login", "password")
+				.fillUserCredential("autotestexecution+dev5555555555@gmail.com", "M8h76536")
 				.navigateToDashboardPage();
 
 		page.init(DashboardPage.class).clickDashboardIconFromLeftNavBar();
