@@ -3,7 +3,6 @@ package page_factory;
 
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.pagefactory.FieldDecorator;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -23,14 +22,14 @@ public class CustomPageFactory {
 	}
 
 
-	private void initElements(FieldDecorator decorator, Object page) {
+	private void initElements(CustomFieldDecorator decorator, Object page) {
 		for (Class proxyIn = page.getClass(); proxyIn != Object.class; proxyIn = proxyIn.getSuperclass()) {
 			proxyFields(decorator, page, proxyIn);
 		}
 
 	}
 
-	private void proxyFields(FieldDecorator decorator, Object page, Class<?> proxyIn) {
+	private void proxyFields(CustomFieldDecorator decorator, Object page, Class<?> proxyIn) {
 		Field[] fields = proxyIn.getDeclaredFields();
 		Field[] var4 = fields;
 		int var5 = fields.length;

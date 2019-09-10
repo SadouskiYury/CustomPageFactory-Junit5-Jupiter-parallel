@@ -2,7 +2,7 @@ package page_factory.InvocationHandler;
 
 import elements.IElement;
 import org.openqa.selenium.WebElement;
-import page_factory.ElementLocator;
+import page_factory.IElementLocator;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -10,12 +10,12 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomListElementInvocationHandler implements InvocationHandler {
+public class ListElementInvocationHandler implements InvocationHandler {
 	private final Class<IElement> clazz;
-	private final ElementLocator locator;
+	private final IElementLocator locator;
 
-	public CustomListElementInvocationHandler(ElementLocator locator,
-											  Class<IElement> clazz) {
+	public ListElementInvocationHandler(IElementLocator locator,
+										Class<IElement> clazz) {
 		this.locator = locator;
 		this.clazz = clazz;
 	}

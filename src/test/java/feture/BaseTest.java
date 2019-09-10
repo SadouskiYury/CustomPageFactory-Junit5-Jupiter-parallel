@@ -1,29 +1,25 @@
 package feture;
 
-import com.epam.reportportal.junit5.ReportPortalExtension;
+import driver.WebDriverSingleton;
 import io.github.bonigarcia.seljup.SeleniumExtension;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import page_factory.CustomPageFactory;
+import pages.DashboardPage;
+import pages.MyQBHomePage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
-
-
-@ExtendWith(ReportPortalExtension.class)
+//@ExtendWith(ReportPortalExtension.class)
 public class BaseTest {
     private WebDriver driver;
-    public CustomPageFactory page;
-    private static int count=1;
-    private static final Logger LOGGER = LogManager.getLogger(BaseTest.class);
+    public CustomPageFactory pageFactory;
+    public MyQBHomePage homePage;
+    public DashboardPage dashboardPage;
+    private String baaseURI = "https://www-dev.myqbusiness.com/";
+
+//		private static final Logger LOGGER = LogManager.getLogger(BaseTestUI.class);
+
 
     @RegisterExtension
     static SeleniumExtension seleniumExtension = new SeleniumExtension();
@@ -42,17 +38,23 @@ public class BaseTest {
 
     @BeforeEach
     public void classLevelSetup(ChromeDriver driver, TestInfo testInfo) throws InterruptedException {
-        LOGGER.info(testInfo.getDisplayName());
-//        System.out.println( testInfo.getTestMethod());
-        System.out.println("Test :"+count+" " + Thread.currentThread().getName()+"\nSession Id: "+driver.getSessionId());
-        count++;
-        this.driver=driver;
-        page = new CustomPageFactory(driver);
+        Thread.sleep(1000);
+        System.out.println("Test :" + testInfo.getDisplayName() + " " + Thread.currentThread().getName() + "\nSession Id: " + driver.getSessionId());
+        this.driver = driver;
+        pageFactory = new CustomPageFactory(driver);
+        WebDriverSingleton.setDriver(driver);
+        initPages();
+        driver.get(baaseURI);
+
     }
 
     @AfterEach
-    public void teardown () {
+    public void teardown() {
         driver.quit();
+    }
 
+    private void initPages() {
+        homePage = pageFactory.init(MyQBHomePage.class);
+        dashboardPage = pageFactory.init(DashboardPage.class);
     }
 }

@@ -1,17 +1,27 @@
 package pages;
 
+import elements.DropDown;
 import elements.Icon;
-import org.openqa.selenium.WebDriver;
 
-public class DashboardPage extends BasePage {
+public class DashboardPage {
 
 	private Icon sideNavIconDashboard;
 
-	public DashboardPage(WebDriver driver) {
-		super(driver);
-	}
+	private DropDown userProfileSelect;
 
 	public void clickDashboardIconFromLeftNavBar(){
 		sideNavIconDashboard.click();
 	}
+
+	public DashboardPage selectFacility(String nameOfFacility) {
+		userProfileSelect.setOptions(nameOfFacility);
+		return this;
+	}
+
+	public DashboardPage waitInvisibilityOfIcon() {
+		sideNavIconDashboard.waitInvisibilityOfElement();
+		return this;
+	}
+
+
 }
