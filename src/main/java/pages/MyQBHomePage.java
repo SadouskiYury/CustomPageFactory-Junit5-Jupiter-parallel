@@ -6,17 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import page_factory.xpath;
 
-public class MyQBHomePage extends BasePage {
-	private String baaseURI="https://www-dev.myqbusiness.com/";
-
-	public MyQBHomePage(WebDriver driver) {
-		super(driver);
-	}
+public class MyQBHomePage {
+	private String baaseURI = "https://www-dev.myqbusiness.com/";
 
 	@xpath(xp = "//button[@id='nav-expander' and normalize-space()='Log In']")
 	private Button button;
 
-	@xpath(xp = "//*[@id='%s']",param = "signup")
+	@xpath(xp = "//*[@id='%s']", param = "signup")
 	private Button buttonLogIn;
 
 	@xpath(xp = "//*[@id ='Email']")
@@ -26,13 +22,12 @@ public class MyQBHomePage extends BasePage {
 	private Input inputPassword;
 
 
-	public MyQBHomePage openExpantionPanel(){
-		driver.get(baaseURI);
+	public MyQBHomePage openExpantionPanel() {
 		button.click();
 		return this;
 	}
 
-	public MyQBHomePage fillUserCredential(String email, String password){
+	public MyQBHomePage fillUserCredential(String email, String password) {
 		inputEmail.typeText(email);
 		inputPassword.typeText(password);
 		return this;
@@ -40,9 +35,8 @@ public class MyQBHomePage extends BasePage {
 
 	public void navigateToDashboardPage() {
 		buttonLogIn.click();
-
-//		}
 	}
-
 }
+
+
 

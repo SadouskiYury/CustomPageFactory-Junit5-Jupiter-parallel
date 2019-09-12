@@ -1,5 +1,6 @@
 package page_factory;
 
+import driver.DriverSingleton;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -23,9 +24,9 @@ public class ElementLocator implements IElementLocator {
 	private WebDriver driver;
 
 
-	public ElementLocator(WebDriver driver, Field field) {
+	public ElementLocator( Field field) {
 		wait = new FluentWait(driver).pollingEvery(Duration.ofMillis(100)).withTimeout(Duration.ofSeconds(25)).ignoring(NoSuchElementException.class);
-		this.driver = driver;
+		this.driver = DriverSingleton.getInstance().getDriver();
 		this.locatedBy = createLocator(field);
 	}
 

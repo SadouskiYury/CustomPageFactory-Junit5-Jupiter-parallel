@@ -11,13 +11,12 @@ public class CustomPageFactory {
 
 	private WebDriver driver;
 
-	public CustomPageFactory(WebDriver webDriver) {
-		this.driver = webDriver;
+	public CustomPageFactory() {
 	}
 
 	public <T> T init(Class<T> pageClassToProxy) {
 		T page=instantiatePage(pageClassToProxy);
-		initElements(new CustomFieldDecorator(driver), page);
+		initElements(new CustomFieldDecorator(), page);
 		return page;
 	}
 

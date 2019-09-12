@@ -13,15 +13,14 @@ import java.util.List;
 public class CustomFieldDecorator {
 	private WebDriver driver;
 
-	public CustomFieldDecorator(WebDriver driver) {
-		this.driver = driver;
+	public CustomFieldDecorator() {
 	}
 
 
 	public Object decorate(ClassLoader loader, Field field) {
 		Class<IElement> decoratableClass = decoratableClass(field);
 		if (decoratableClass != null) {
-			IElementLocator locator = new ElementLocator(driver, field);
+			IElementLocator locator = new ElementLocator(field);
 			if (List.class.isAssignableFrom(field.getType())) {
 				return createList(loader, locator, decoratableClass);
 			}

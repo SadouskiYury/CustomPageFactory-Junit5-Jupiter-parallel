@@ -12,10 +12,11 @@ public class HomeFeature extends BaseTest {
 
 	@Test
 	public void firstTestExample() {
-		page.init(MyQBHomePage.class).openExpantionPanel()
-				.fillUserCredential("login", "password")
+		homePage.openExpantionPanel()
+				.fillUserCredential("autotestexecution+dev5555555555@gmail.com", "M8h76536")
 				.navigateToDashboardPage();
 
-		page.init(DashboardPage.class).clickDashboardIconFromLeftNavBar();
+		dashboardPage.selectFacility("AutotestFacility_AddDevice_WithEthernetGatewayHub")
+				.clickDashboardIconFromLeftNavBar();
 	}
 }

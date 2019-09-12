@@ -1,7 +1,7 @@
 package elements;
 
 
-import driver.WebDriverSingleton;
+import driver.DriverSingleton;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,7 +20,7 @@ public class Element implements IElement {
 
 	public Element(WebElement webElement) {
 		this.webElement = webElement;
-		driver = WebDriverSingleton.getDriver();
+		driver = DriverSingleton.getInstance().getDriver();
 		wait = new FluentWait(driver).pollingEvery(Duration.ofMillis(100)).withTimeout(Duration.ofSeconds(14));
 		xpath = By.xpath(webElement.toString().substring(50));
 	}

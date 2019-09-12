@@ -1,18 +1,18 @@
 package feture;
 
-import driver.WebDriverSingleton;
+import com.epam.reportportal.junit5.ReportPortalExtension;
+import driver.DriverSingleton;
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import page_factory.CustomPageFactory;
 import pages.DashboardPage;
 import pages.MyQBHomePage;
 
-//@ExtendWith(ReportPortalExtension.class)
+@ExtendWith(ReportPortalExtension.class)
 public class BaseTest {
-    private WebDriver driver;
     public CustomPageFactory pageFactory;
     public MyQBHomePage homePage;
     public DashboardPage dashboardPage;
@@ -23,12 +23,10 @@ public class BaseTest {
 
     @RegisterExtension
     static SeleniumExtension seleniumExtension = new SeleniumExtension();
-//    static  TestLauncher tl = new TestLauncher();
 
     @BeforeAll
     static void setupAll() {
         seleniumExtension.getConfig().setBrowserSessionTimeoutDuration("5m0s");
-//        tl.LaunchTests();
     }
 
     @AfterAll
@@ -40,17 +38,15 @@ public class BaseTest {
     public void classLevelSetup(ChromeDriver driver, TestInfo testInfo) throws InterruptedException {
         Thread.sleep(1000);
         System.out.println("Test :" + testInfo.getDisplayName() + " " + Thread.currentThread().getName() + "\nSession Id: " + driver.getSessionId());
-        this.driver = driver;
-        pageFactory = new CustomPageFactory(driver);
-        WebDriverSingleton.setDriver(driver);
+        pageFactory = new CustomPageFactory();
+        DriverSingleton.setDriver(driver);
         initPages();
         driver.get(baaseURI);
-
     }
 
     @AfterEach
     public void teardown() {
-        driver.quit();
+        DriverSingleton.getInstance().closeDriver();
     }
 
     private void initPages() {
