@@ -25,8 +25,8 @@ public class ElementLocator implements IElementLocator {
 
 
 	public ElementLocator( Field field) {
-		wait = new FluentWait(driver).pollingEvery(Duration.ofMillis(100)).withTimeout(Duration.ofSeconds(25)).ignoring(NoSuchElementException.class);
 		this.driver = DriverSingleton.getInstance().getDriver();
+		wait = new FluentWait(driver).pollingEvery(Duration.ofMillis(100)).withTimeout(Duration.ofSeconds(25)).ignoring(NoSuchElementException.class);
 		this.locatedBy = createLocator(field);
 	}
 

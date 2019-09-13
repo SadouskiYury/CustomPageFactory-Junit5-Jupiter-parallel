@@ -2,7 +2,7 @@ package elements;
 
 import org.openqa.selenium.WebElement;
 
-public class Icon extends Element implements IElement{
+public class Icon extends Element{
 	public Icon(WebElement webElement) {
 		super(webElement);
 	}

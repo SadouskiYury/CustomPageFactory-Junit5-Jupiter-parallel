@@ -30,7 +30,7 @@ public class Element implements IElement {
 		wait.until(ExpectedConditions.invisibilityOf(webElement));
 	}
 
-	public void textToBe(String string) {
+	public void textToBePresent(String string) {
 		wait.until(ExpectedConditions.textToBe(xpath, string));
 	}
 

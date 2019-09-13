@@ -1,5 +1,6 @@
 package page_factory.InvocationHandler;
 
+import elements.Element;
 import elements.IElement;
 import org.openqa.selenium.WebElement;
 import page_factory.IElementLocator;
@@ -11,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListElementInvocationHandler implements InvocationHandler {
-	private final Class<IElement> clazz;
+	private final Class<Element> clazz;
 	private final IElementLocator locator;
 
 	public ListElementInvocationHandler(IElementLocator locator,
-										Class<IElement> clazz) {
+										Class<Element> clazz) {
 		this.locator = locator;
 		this.clazz = clazz;
 	}
@@ -37,7 +38,7 @@ public class ListElementInvocationHandler implements InvocationHandler {
 		}
 	}
 
-	private IElement createInstance(Class<IElement> clazz,
+	private Element createInstance(Class<Element> clazz,
 									WebElement element) {
 		try {
 			return clazz.getConstructor(WebElement.class).

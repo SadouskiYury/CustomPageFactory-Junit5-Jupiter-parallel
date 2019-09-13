@@ -18,7 +18,7 @@ public class MyQBHomePage {
 	@xpath(xp = "//*[@id ='Email']")
 	private Input inputEmail;
 
-	@FindBy(id = "Password")
+	@xpath(xp = "//*[@id ='Password']")
 	private Input inputPassword;
 
 

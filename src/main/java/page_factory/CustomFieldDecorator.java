@@ -1,5 +1,6 @@
 package page_factory;
 
+import elements.Element;
 import elements.IElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,7 +19,7 @@ public class CustomFieldDecorator {
 
 
 	public Object decorate(ClassLoader loader, Field field) {
-		Class<IElement> decoratableClass = decoratableClass(field);
+		Class<Element> decoratableClass = decoratableClass(field);
 		if (decoratableClass != null) {
 			IElementLocator locator = new ElementLocator(field);
 			if (List.class.isAssignableFrom(field.getType())) {
@@ -35,7 +36,7 @@ public class CustomFieldDecorator {
 	 */
 
 	@SuppressWarnings("unchecked")
-	private Class<IElement> decoratableClass(Field field) {
+	private Class<Element> decoratableClass(Field field) {
 		Class<?> clazz = field.getType();
 		// для списка обязательно должна быть задана аннотация
 		if (List.class.isAssignableFrom(clazz) && field.getAnnotation(xpath.class) != null) {
@@ -49,7 +50,7 @@ public class CustomFieldDecorator {
 					getActualTypeArguments()[0];
 		}
 		if (IElement.class.isAssignableFrom(clazz)) {
-			return (Class<IElement>) clazz;
+			return (Class<Element>) clazz;
 		} else {
 			return null;
 		}
@@ -60,7 +61,7 @@ public class CustomFieldDecorator {
 	 * Находит WebElement и передает его в кастомный класс
 	 */
 	protected IElement createElement(ClassLoader loader,
-									 IElementLocator locator, Class<IElement> clazz) {
+									 IElementLocator locator, Class<Element> clazz) {
 		WebElement proxy = proxyForLocator(loader, locator);
 		return createInstance(clazz, proxy);
 	}
@@ -69,7 +70,7 @@ public class CustomFieldDecorator {
 	 * Создает экземпляр класса,
 	 * вызывая конструктор с аргументом WebElement
 	 */
-	private IElement createInstance(Class<IElement> clazz, WebElement element) {
+	private Element createInstance(Class<Element> clazz, WebElement element) {
 		try {
 			return clazz.getConstructor(WebElement.class)
 					.newInstance(element);
@@ -85,7 +86,7 @@ public class CustomFieldDecorator {
 	 */
 	private WebElement proxyForLocator(ClassLoader loader, IElementLocator locator) {
 		InvocationHandler handler = new ElementInvocationHandler(locator);
-		WebElement proxy = (WebElement) Proxy.newProxyInstance(loader, new Class[]{WebElement.class, IElement.class}, handler);
+		WebElement proxy = (WebElement) Proxy.newProxyInstance(loader, new Class[]{WebElement.class}, handler);
 		return proxy;
 	}
 
@@ -93,13 +94,13 @@ public class CustomFieldDecorator {
 	 * Создание прокси списка Элементов
 	 */
 	@SuppressWarnings("unchecked")
-	protected List<IElement> createList(ClassLoader loader,
+	protected List<Element> createList(ClassLoader loader,
 										IElementLocator locator,
-										Class<IElement> clazz) {
+										Class<Element> clazz) {
 		InvocationHandler handler =
 				new ListElementInvocationHandler(locator, clazz);
-		List<IElement> elements =
-				(List<IElement>) Proxy.newProxyInstance(
+		List<Element> elements =
+				(List<Element>) Proxy.newProxyInstance(
 						loader, new Class[]{List.class}, handler);
 		return elements;
 	}

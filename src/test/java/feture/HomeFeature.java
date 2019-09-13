@@ -13,7 +13,7 @@ public class HomeFeature extends BaseTest {
 	@Test
 	public void firstTestExample() {
 		homePage.openExpantionPanel()
-				.fillUserCredential("autotestexecution+dev5555555555@gmail.com", "M8h76536")
+				.fillUserCredential("login", "password")
 				.navigateToDashboardPage();
 
 		dashboardPage.selectFacility("AutotestFacility_AddDevice_WithEthernetGatewayHub")

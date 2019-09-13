@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 
 import java.util.List;
 
-public class DropDown extends Element implements IElement {
+public class DropDown extends Element{
 
 
 	public DropDown(WebElement webElement) {
