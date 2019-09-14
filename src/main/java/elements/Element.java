@@ -2,6 +2,7 @@ package elements;
 
 
 import driver.DriverSingleton;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,7 @@ public class Element implements IElement {
 		driver = DriverSingleton.getInstance().getDriver();
 		wait = new FluentWait(driver).pollingEvery(Duration.ofMillis(100)).withTimeout(Duration.ofSeconds(14));
 		xpath = By.xpath(webElement.toString().substring(50));
+
 	}
 
 
@@ -30,8 +32,17 @@ public class Element implements IElement {
 		wait.until(ExpectedConditions.invisibilityOf(webElement));
 	}
 
-	public void textToBePresent(String string) {
-		wait.until(ExpectedConditions.textToBe(xpath, string));
+	public void softAssertTextShouldBe(String expected){
+		SoftAssertions softAssertions=new SoftAssertions();
+		String actual =webElement.getText();
+		softAssertions.assertThat(actual).isEqualToNormalizingNewlines(expected);
 	}
 
+	public Boolean attributeContains(String attribute, String value){
+		return webElement.getAttribute(attribute).contains(value);
+	}
+
+	public Boolean attributeEquals(String attribute, String value){
+		return webElement.getAttribute(attribute).equals(value);
+	}
 }

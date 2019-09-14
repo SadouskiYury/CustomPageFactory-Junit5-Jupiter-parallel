@@ -2,7 +2,13 @@ package elements;
 
 
 public interface IElement {
+
 	void waitInvisibilityOfElement();
 
-	void textToBePresent(String string);
+	void softAssertTextShouldBe(String text);
+
+	Boolean attributeContains(String attribute, String value);
+
+	Boolean attributeEquals(String attribute, String value);
+
 }

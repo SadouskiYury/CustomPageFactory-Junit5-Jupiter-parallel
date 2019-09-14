@@ -1,12 +1,13 @@
-package elements;
+package elements.multiple;
 
+import elements.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 
 import java.util.List;
 
-public class DropDown extends Element{
+public class DropDown extends Element {
 
 
 	public DropDown(WebElement webElement) {

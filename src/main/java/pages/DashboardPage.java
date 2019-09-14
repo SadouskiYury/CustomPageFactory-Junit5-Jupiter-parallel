@@ -1,7 +1,7 @@
 package pages;
 
-import elements.DropDown;
-import elements.Icon;
+import elements.multiple.DropDown;
+import elements.simple.Icon;
 
 public class DashboardPage {
 

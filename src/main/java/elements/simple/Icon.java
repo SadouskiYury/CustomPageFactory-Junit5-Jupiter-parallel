@@ -1,8 +1,9 @@
-package elements;
+package elements.simple;
 
+import elements.Element;
 import org.openqa.selenium.WebElement;
 
-public class Icon extends Element{
+public class Icon extends Element {
 	public Icon(WebElement webElement) {
 		super(webElement);
 	}

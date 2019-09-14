@@ -15,7 +15,7 @@ public class CopyHomeFeature extends BaseTest {
 				.fillUserCredential("login", "password")
 				.navigateToDashboardPage();
 
-		dashboardPage.selectFacility("AutotestFacility_AddDevice_WithEthernetGatewayHub")
+		dashboardPage.selectFacility("FacilityName")
 				.waitInvisibilityOfIcon();
 
 	}

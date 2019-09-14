@@ -1,9 +1,7 @@
 package pages;
 
-import elements.Button;
-import elements.Input;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
+import elements.simple.Button;
+import elements.simple.Input;
 import page_factory.xpath;
 
 public class MyQBHomePage {
