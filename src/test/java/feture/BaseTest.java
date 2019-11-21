@@ -44,7 +44,9 @@ public class BaseTest {
         Class.forName("org.h2.Driver");
         Connection conn=DriverManager.getConnection("jdbc:h2:./test ","test","test");
         Statement st=conn.createStatement();
-        st.execute("insert into example values('Yury')");
+        st.execute("CREATE TABLE TEST(ID INT, NAME VARCHAR);\n" +
+				"INSERT INTO TEST VALUES(1, 'Hello'), (2, 'World');\n" +
+				"CALL CSVWRITE('test.csv', 'SELECT * FROM TEST');");
         conn.close();
         Thread.sleep(1000);
         System.out.println("Test :" + testInfo.getDisplayName() + " " + Thread.currentThread().getName() + "\nSession Id: " + driver.getSessionId());
