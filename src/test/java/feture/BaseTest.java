@@ -11,6 +11,11 @@ import page_factory.CustomPageFactory;
 import pages.DashboardPage;
 import pages.MyQBHomePage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 @ExtendWith(ReportPortalExtension.class)
 public class BaseTest {
     public CustomPageFactory pageFactory;
@@ -35,7 +40,12 @@ public class BaseTest {
     }
 
     @BeforeEach
-    public void classLevelSetup(ChromeDriver driver, TestInfo testInfo) throws InterruptedException {
+    public void classLevelSetup(ChromeDriver driver, TestInfo testInfo) throws InterruptedException, ClassNotFoundException, SQLException {
+        Class.forName("org.h2.Driver");
+        Connection conn=DriverManager.getConnection("jdbc:h2:./test ","test","test");
+        Statement st=conn.createStatement();
+        st.execute("insert into example values('Yury')");
+        conn.close();
         Thread.sleep(1000);
         System.out.println("Test :" + testInfo.getDisplayName() + " " + Thread.currentThread().getName() + "\nSession Id: " + driver.getSessionId());
         pageFactory = new CustomPageFactory();
